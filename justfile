@@ -22,13 +22,27 @@ build_option := if target != "debug" { "--" + target } else { "--" }
 #
 # Otherwise, you could use `cargo metadata` [5]:
 #
-#     if command -v jq 2>&1 >/dev/null:
-#         cargo metadata --format-version=1 --color=never --no-deps |
-#            jq --raw-output '.packages[0].name'
+#     if command -v jq 2>&1 >/dev/null:                              # Ensure jq available
+#         cargo metadata --format-version=1 --color=never --no-deps  # JSON output
+#              | jq --raw-output '.packages[0].name'                 # Get package name
 #
-# Alternatively, we can parse the package ID [6].  This is what I ended up doing,
-# because I figured that `jq` is less common to have than `awk` and `cut`, and
-# `cargo pkgid` probably has smaller overhead.
+# Alternatively, we can parse the package ID [6]:
+#
+#     cargo pkgid                    # Output like "path+file:///home/gl#1.0.0"
+#         | awk -F'/' '{print $NF}'  # Get final component of path ("gl#1.0.0")
+#         | cut -d'#' -f1            # Remove version number
+#
+# This is an attractive alternative because it doesn't require `jq` as a dependency.
+#
+# Unfortunately, parsing the package ID does not work in CI pipelines because it
+# requires parsing from a Cargo.lock file that may not necessarily exist.  Global
+# variables in Just seem to be defined before `build-core` is run, so `cargo pkgid`
+# silently fails and stores an empty variable.
+#
+# Rather, we can adapt a version using a similar commant for parsing a `pyproject.toml`
+# from a Python project [7].  This is what I ended up doing.  Unfortunately, it
+# requires UV, where I did not want to add additional dependencies.  However, I am
+# using UV for running pre-commit anyway, so I think this is a reasonable dependency.
 #
 # Note that this would not necessarily be appropriate if the Rust package was a
 # library rather than a binary.
@@ -39,13 +53,15 @@ build_option := if target != "debug" { "--" + target } else { "--" }
 # [4]: https://just.systems/man/en/functions.html#path-manipulation
 # [5]: https://doc.rust-lang.org/cargo/commands/cargo-metadata.html
 # [6]: https://doc.rust-lang.org/cargo/reference/pkgid-spec.html
+# [7]: https://stackoverflow.com/a/79276213
 project_dir := justfile_dir() + "/"
-bin_name := `cargo pkgid | awk -F'/' '{print $NF}' | cut -d'#' -f1`
+bin_name := `uvx --from=toml-cli toml get --toml-path=Cargo.toml package.name`
 target_bin := "target" / target / bin_name
 doc_file := "target" / "doc" / bin_name / "index.html"
 
 # Build the project and copy and strip the resulting binary to the root project
 build: build-core
+    cargo pkgid
     cp -f {{target_bin}} {{project_dir}}
     strip {{bin_name}}
 
@@ -77,13 +93,19 @@ rust-target-win:
     rustup target add x86_64-pc-windows-gnu
 
 # Check project formatting and linting
-fmt: clippy
-    cargo fmt --all -- --check
+fmt: pre-commit clippy cargo-fmt
+
+[private]
+pre-commit:
     uvx pre-commit run --all-files
 
 [private]
+cargo-fmt:
+    cargo fmt --all -- --check
+
+[private]
 clippy:
-  cargo clippy --all --all-targets --all-features -- --deny warnings
+  cargo clippy --all --all-targets --all-features -- --deny warnings --allow clippy::uninlined-format-args
 
 # Update project dependencies in Cargo.lock
 update:
