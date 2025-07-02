@@ -79,6 +79,7 @@ rust-target-win:
 # Check project formatting and linting
 fmt: clippy
     cargo fmt --all -- --check
+    uvx pre-commit run --all-files
 
 [private]
 clippy:
