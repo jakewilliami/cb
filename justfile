@@ -95,4 +95,3 @@ test:
 # Generate doc
 doc:
     cargo doc --open
-
