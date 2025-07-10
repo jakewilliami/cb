@@ -101,7 +101,7 @@ fn main() -> io::Result<()> {
 
     // Print the requested character to stdout
     let mut stdout = io::stdout();
-    write!(stdout, "{}", ch)?;
+    writeln!(stdout, "{}", ch)?;
     stdout.flush()?; // Make sure it actually writes out
     Ok(())
 }
