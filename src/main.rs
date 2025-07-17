@@ -59,8 +59,8 @@ enum CharVal {
 
     // Long Arrows
     RightArrow = 0x27F6,
-    MapsTo = 0x27F5,
-    LeftArrow = 0x27FC,
+    MapsTo = 0x27FC,
+    LeftArrow = 0x27F5,
     MapsFrom = 0x27FB,
 
     // Other
