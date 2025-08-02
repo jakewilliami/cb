@@ -1,4 +1,4 @@
-use clap::{crate_authors, crate_version, Parser, ValueEnum};
+use clap::{Parser, ValueEnum, crate_authors, crate_version};
 use copypasta_ext::{prelude::*, x11_fork::ClipboardContext};
 use std::{
     char, env, fmt,
@@ -67,6 +67,7 @@ enum CharVal {
     Prime = 0x2032,
     PlusMinus = 0x00B1,
     Degree = 0x00B0,
+    TradeMark = 0x2122,
 }
 
 // Stolen from:
@@ -101,7 +102,7 @@ fn main() -> io::Result<()> {
 
     // Print the requested character to stdout
     let mut stdout = io::stdout();
-    writeln!(stdout, "{}", ch)?;
+    writeln!(stdout, "{ch}")?;
     stdout.flush()?; // Make sure it actually writes out
     Ok(())
 }
