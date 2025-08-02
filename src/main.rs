@@ -33,7 +33,9 @@ struct Cli {
 #[derive(Clone, ValueEnum)]
 enum CharVal {
     // Dashes
+    #[value(alias = "endash")]
     EnDash = 0x2013,
+    #[value(alias = "emdash")]
     EmDash = 0x2014,
 
     // Operators
@@ -49,6 +51,7 @@ enum CharVal {
 
     // Set Theory
     In = 0x2208,
+    #[value(alias = "not-in")]
     Ni = 0x220B,
     Union = 0x222A,
     Intersection = 0x2229,
@@ -59,14 +62,17 @@ enum CharVal {
 
     // Long Arrows
     RightArrow = 0x27F6,
+    #[value(alias = "mapsto")]
     MapsTo = 0x27FC,
     LeftArrow = 0x27F5,
     MapsFrom = 0x27FB,
 
     // Other
     Prime = 0x2032,
+    #[value(alias = "pm")]
     PlusMinus = 0x00B1,
     Degree = 0x00B0,
+    #[value(alias = "trademark", alias = "trade", alias = "tm")]
     TradeMark = 0x2122,
 }
 
