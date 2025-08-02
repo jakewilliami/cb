@@ -8,7 +8,7 @@ This should also work over SSH, RDP, on WSL, and with X11.
 
 ## Quick Start
 
-```commandline
+```shell
 $ just
 
 $ ./cb in
