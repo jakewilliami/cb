@@ -1,3 +1,7 @@
+### Misc ###
+# bibtex auto folder when using emacs and auctex
+auto/
+
 ### Rust ###
 # Binary
 /cb

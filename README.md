@@ -17,3 +17,7 @@ $ ./cb in
 $ pbpaste  # on macOS
 ∈
 ```
+
+## Citation
+
+If your research depends on `cb`, please consider giving us a formal citation: [`citation.bib`](./citation.bib).
