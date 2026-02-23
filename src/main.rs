@@ -1,4 +1,4 @@
-use clap::{Parser, ValueEnum, crate_authors, crate_version};
+use clap::{crate_authors, crate_version, Parser, ValueEnum};
 use copypasta_ext::{prelude::*, x11_fork::ClipboardContext};
 use std::{
     char, env, fmt,
@@ -48,10 +48,14 @@ enum CharVal {
     Approx = 0x2248,
     Gte = 0x2265,
     Lte = 0x2264,
+    #[value(alias = "ne", alias = "neq")]
+    Neq = 0x2260,
+    #[value(alias = "propto")]
+    PropTo = 0x221D,
 
     // Set Theory
     In = 0x2208,
-    #[value(alias = "not-in")]
+    #[value(alias = "not-in", alias = "ni")]
     Ni = 0x220B,
     Union = 0x222A,
     Intersection = 0x2229,
@@ -74,6 +78,8 @@ enum CharVal {
     Degree = 0x00B0,
     #[value(alias = "trademark", alias = "trade", alias = "tm")]
     TradeMark = 0x2122,
+    #[value(alias = "numero", alias = "no")]
+    Numero = 0x2116,
 }
 
 // Stolen from:
