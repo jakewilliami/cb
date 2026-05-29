@@ -80,6 +80,8 @@ enum CharVal {
     TradeMark = 0x2122,
     #[value(alias = "numero", alias = "no")]
     Numero = 0x2116,
+    #[value(alias = "cent")]
+    Cents = 0x00A2,
 }
 
 // Stolen from:
