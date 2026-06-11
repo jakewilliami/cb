@@ -75,6 +75,7 @@ enum CharVal {
     Prime = 0x2032,
     #[value(alias = "pm")]
     PlusMinus = 0x00B1,
+    #[value(alias = "deg")]
     Degree = 0x00B0,
     #[value(alias = "trademark", alias = "trade", alias = "tm")]
     TradeMark = 0x2122,
