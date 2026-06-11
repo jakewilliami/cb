@@ -83,6 +83,8 @@ enum CharVal {
     Numero = 0x2116,
     #[value(alias = "cent")]
     Cents = 0x00A2,
+    #[value(alias = "cmd")]
+    Command = 0x2318,
 }
 
 // Stolen from:
