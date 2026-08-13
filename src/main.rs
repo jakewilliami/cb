@@ -89,6 +89,8 @@ enum CharVal {
     Command = 0x2318,
     #[value(alias = "leftrightarrow")]
     Iff = 0x27FA,
+    #[value(alias = "not", alias = "lnot")]
+    Neg = 0x00AC,
 }
 
 // Stolen from:
