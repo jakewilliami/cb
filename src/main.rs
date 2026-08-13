@@ -52,8 +52,6 @@ enum CharVal {
     Neq = 0x2260,
     #[value(alias = "propto")]
     PropTo = 0x221D,
-    #[value(alias = "veebar")]
-    Xor = 0x22BB,
 
     // Set Theory
     In = 0x2208,
@@ -73,6 +71,18 @@ enum CharVal {
     LeftArrow = 0x27F5,
     MapsFrom = 0x27FB,
 
+    // Logic
+    #[value(alias = "leftrightarrow")]
+    Iff = 0x27FA,
+    #[value(alias = "lnot", alias = "neg")]
+    Not = 0x00AC,
+    #[value(alias = "land", alias = "wedge")]
+    And = 0x2227,
+    #[value(alias = "lor", alias = "vee")]
+    Or = 0x2228,
+    #[value(alias = "veebar")]
+    Xor = 0x22BB,
+
     // Other
     Prime = 0x2032,
     #[value(alias = "pm")]
@@ -87,10 +97,6 @@ enum CharVal {
     Cents = 0x00A2,
     #[value(alias = "cmd")]
     Command = 0x2318,
-    #[value(alias = "leftrightarrow")]
-    Iff = 0x27FA,
-    #[value(alias = "not", alias = "lnot")]
-    Neg = 0x00AC,
 }
 
 // Stolen from:
