@@ -52,6 +52,7 @@ enum CharVal {
     Neq = 0x2260,
     #[value(alias = "propto")]
     PropTo = 0x221D,
+    Equiv = 0x2261,
 
     // Set Theory
     In = 0x2208,
